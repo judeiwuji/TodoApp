@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export default class IndexController {
-  getHomePage(req: Request, res: Response) {
+  static getHomePage(req: Request, res: Response) {
     res.render('index', {
       page: {
         title: 'Todo',

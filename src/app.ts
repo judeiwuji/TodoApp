@@ -7,6 +7,7 @@ import path from 'path';
 import session from 'express-session';
 import { config } from 'dotenv';
 import morgan from 'morgan';
+import cors from 'cors';
 import HandlebarsUtil from './utils/HandlebarsUtil';
 import RouteManager from './routes/RouteManager';
 config();
@@ -46,6 +47,7 @@ class App {
       })
     );
     this.app.use(connectFlash());
+    this.app.use(cors({ origin: '*' }));
     this.app.engine(
       'hbs',
       engine({
