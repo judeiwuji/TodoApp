@@ -1,0 +1,162 @@
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-size: 14px;
+  background-color: #f8f8f8;
+  font-family: 'Poppins', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+    sans-serif;
+}
+
+/* logo */
+.logo {
+  width: 1.5em;
+  height: 1.5em;
+}
+/* logo */
+
+/* banner */
+.banner {
+  padding: 10rem 5rem;
+  background-color: #3c40c6;
+  background-image: url(../imgs/to_do_list.svg);
+  background-repeat: no-repeat;
+  background-position: 80%;
+  background-size: 20em;
+  border-bottom-right-radius: 15rem;
+}
+/* banner */
+
+/* hero-textbox */
+.hero-textbox {
+  width: 50%;
+  color: #ffffff;
+}
+
+.hero-textbox h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+}
+
+.hero-textbox p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+/* hero-textbox */
+
+/* Features */
+.features-section > div {
+  padding: 4.75rem 0;
+}
+
+.features-section > div:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.features-section .row {
+  align-items: center;
+}
+
+.features-section img {
+  width: 25rem;
+}
+
+.features-section h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.features-section p {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #4e4e4e;
+}
+/* Features */
+
+/* wrapper */
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.wrapper-md {
+  width: 100%;
+  min-height: 86.2vh;
+}
+/* wrapper */
+
+/* rounded-card */
+.rounded-card {
+  border-radius: 10px;
+}
+
+.rounded-card .card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.rounded-card .card-footer {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+/* rounded-card */
+
+/* btn */
+.btn-full {
+  background-color: #f50057;
+  color: #ffffff;
+}
+
+.btn-full:hover {
+  color: #ffffff;
+}
+/* btn */
+
+@media screen and (max-width: 991px) {
+  .banner {
+    padding: 5rem;
+    background-size: 16rem;
+  }
+
+  .hero-textbox {
+    width: 60%;
+  }
+
+  .features-section img {
+    width: 18rem;
+  }
+
+  .features-section > div {
+    padding: 3rem 0;
+  }
+}
+
+@media screen and (max-width: 857px) {
+  .banner {
+    background-position: 83%;
+  }
+
+  .hero-textbox h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .banner {
+    background-image: none;
+    padding: 1rem;
+    border-bottom-right-radius: 6rem;
+  }
+
+  .hero-textbox {
+    width: 100%;
+  }
+
+  .features-section .row > div {
+    text-align: center;
+    margin-bottom: 1.75rem;
+  }
+}
