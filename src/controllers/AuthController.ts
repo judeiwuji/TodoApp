@@ -48,7 +48,7 @@ export default class AuthController {
         expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
       });
       res.cookie('session', session, {
-        expires: new Date(Date.now() + 60 * 60 * 24),
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
       });
       res.redirect('/dashboard');
     } catch (error: any) {

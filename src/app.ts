@@ -11,6 +11,9 @@ import cors from 'cors';
 import HandlebarsUtil from './utils/HandlebarsUtil';
 import RouteManager from './routes/RouteManager';
 import DB from './models/engine/DBStorage';
+import deserializeUser from './middlewares/deserializeUser';
+import error401 from './middlewares/handlers/error401';
+import error404 from './middlewares/handlers/error404';
 config();
 
 class App {
@@ -67,6 +70,7 @@ class App {
     const viewsPath = path.join(__dirname, '..', 'views');
     this.app.set('view engine', 'hbs');
     this.app.set('views', viewsPath);
+    this.app.use(deserializeUser);
   }
 
   settings() {
