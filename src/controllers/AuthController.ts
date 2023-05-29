@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import AppConfig from '../config/AppConfig';
+import UserService from '../services/UserService';
+import AlreadyExistsError from '../models/errors/AlreadyExistsError';
+import crypto from 'crypto';
+import JWTUtil from '../utils/JWTUtil';
 
 export default class AuthController {
   static getLoginPage(req: Request, res: Response) {
@@ -37,11 +41,16 @@ export default class AuthController {
         return;
       }
 
-      res.send(response.data);
-      // check if user already exists
-      // user exists goto dashboard
-      // else add user to database
-      // redirect to dashboard
+      const userService = new UserService();
+      const user = await userService.createUser(response.data);
+      const session = JWTUtil.sign({
+        payload: { user: user.id },
+        expiresIn: process.env.ACCESS_TOKEN_EXPIRES,
+      });
+      res.cookie('session', session, {
+        expires: new Date(Date.now() + 60 * 60 * 24),
+      });
+      res.redirect('/dashboard');
     } catch (error: any) {
       req.flash('error', error.message);
       res.redirect('/login');

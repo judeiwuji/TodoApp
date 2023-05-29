@@ -10,6 +10,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import HandlebarsUtil from './utils/HandlebarsUtil';
 import RouteManager from './routes/RouteManager';
+import DB from './models/engine/DBStorage';
 config();
 
 class App {
@@ -17,6 +18,9 @@ class App {
   private port = process.env.PORT || 5000;
 
   constructor() {
+    DB.sync({ alter: false }).catch((error) => {
+      console.log(error.message);
+    });
     this.app = express();
     this.middlewares();
     this.locals();
