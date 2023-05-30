@@ -22,13 +22,21 @@ export default class TodoService {
       );
 
       if (data.items) {
-        const items: TodoItemCreationAttributes[] = data.items.map((d) => ({
-          task: d.task,
-          todoId: id,
-        }));
+        if (!Array.isArray(data.items)) {
+          data.items = [data.items];
+        }
+        data.items = data.items.filter((d) => !!d);
+        const items: TodoItemCreationAttributes[] = data.items.map(
+          (task: any) => ({
+            task,
+            todoId: id,
+          })
+        );
 
         await TodoItem.bulkCreate(items, { transaction });
       }
+      await transaction.commit();
+
       return (await Todo.findByPk(id, { include: [TodoItem] })) as Todo;
     } catch (error: any) {
       transaction.rollback();
@@ -59,6 +67,7 @@ export default class TodoService {
         id: id,
         userId: user.id,
       },
+      include: [TodoItem],
     });
 
     if (!todo) {
@@ -76,12 +85,19 @@ export default class TodoService {
       offset: pager.startIndex,
       limit: pager.pageSize,
       order: [['createdAt', 'DESC']],
+      include: [TodoItem],
     });
 
     return {
       page,
       totalPages: pager.totalPages(count, pager.pageSize),
-      results: rows,
+      results: rows.map((d) => {
+        const todo = d.toJSON();
+        const doneTasks = todo.items.filter((d) => d.done);
+        todo.totalDone = doneTasks.length;
+        todo.total = todo.items.length;
+        return todo;
+      }),
     };
   }
 

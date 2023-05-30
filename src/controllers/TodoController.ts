@@ -15,7 +15,7 @@ export default class TodoController {
     const page = Number(req.query.page) || 1;
     try {
       const todoService = new TodoService();
-      const todos = await todoService.getTodos(page, req.user as User);
+      const data = await todoService.getTodos(page, req.user as User);
       res.render('todos/dashboard', {
         page: {
           title: 'My Todos - Todoist',
@@ -23,8 +23,9 @@ export default class TodoController {
         },
         path: req.path,
         isLoggedIn: !!req.user,
-        todos,
+        todos: data.results,
       });
+      console.log(data);
     } catch (error: any) {
       req.flash('error', error.message);
       res.redirect('/');
@@ -33,7 +34,7 @@ export default class TodoController {
 
   static async createTodo(req: IRequest, res: Response) {
     const todoService = new TodoService();
-
+    console.log(req.body);
     try {
       const data = await validate(TodoCreationSchema, req.body);
       const todo = await todoService.createTodo(data, req.user as User);
@@ -69,13 +70,15 @@ export default class TodoController {
 
     try {
       const todo = await todoService.getTodo(id, req.user as User);
-      res.render('todos/details', {
+      console.log(todo.toJSON());
+      res.render('todos/todo', {
         page: {
           title: 'Todo Details',
           description: 'Manage your todos',
         },
         path: req.path,
-        todo,
+        isLoggedIn: !!req.user,
+        todo: todo.toJSON(),
       });
     } catch (error: any) {
       req.flash('error', error.message);

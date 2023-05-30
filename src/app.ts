@@ -1,19 +1,18 @@
 const dateFormat = require('handlebars-dateformat');
 import cookieParser from 'cookie-parser';
 import connectFlash from 'connect-flash';
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import { engine } from 'express-handlebars';
 import path from 'path';
 import session from 'express-session';
 import { config } from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
+import methodOverride from 'method-override';
 import HandlebarsUtil from './utils/HandlebarsUtil';
 import RouteManager from './routes/RouteManager';
 import DB from './models/engine/DBStorage';
 import deserializeUser from './middlewares/deserializeUser';
-import error401 from './middlewares/handlers/error401';
-import error404 from './middlewares/handlers/error404';
 config();
 
 class App {
@@ -42,6 +41,18 @@ class App {
   middlewares() {
     this.app.use(morgan('dev'));
     this.app.use(express.static(path.join(__dirname, '..', 'public')));
+    this.app.use(express.json({ limit: '20mb' }));
+    this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(
+      methodOverride((req: Request, res: Response) => {
+        if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+          // look in urlencoded POST bodies and delete it
+          var method = req.body._method;
+          delete req.body._method;
+          return method;
+        }
+      })
+    );
     this.app.use(cookieParser(process.env.COOKIE_SECRET));
     this.app.use(
       session({

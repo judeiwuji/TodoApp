@@ -13,6 +13,8 @@ import { Optional } from 'sequelize';
 import TodoItem from './TodoItem';
 
 export interface TodoAttributes {
+  totalDone: number;
+  total: number;
   id: string;
   userId: string;
   title: string;
@@ -24,7 +26,7 @@ export interface TodoAttributes {
 export interface TodoCreationAttributes
   extends Optional<
     TodoAttributes,
-    'id' | 'items' | 'createdAt' | 'updatedAt'
+    'id' | 'items' | 'totalDone' | 'total' | 'createdAt' | 'updatedAt'
   > {}
 @Table
 export default class Todo extends Model<

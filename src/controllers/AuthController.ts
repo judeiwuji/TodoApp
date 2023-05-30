@@ -56,4 +56,9 @@ export default class AuthController {
       res.redirect('/login');
     }
   }
+
+  static async logout(req: Request, res: Response) {
+    res.clearCookie('session');
+    res.redirect('/');
+  }
 }

@@ -122,7 +122,8 @@ body {
 
 /* app-card */
 .app-card {
-  padding: 2rem 3rem;
+  /* padding: 2rem 3rem; */
+  min-height: 13em;
 }
 
 .app-card-btn,
@@ -134,10 +135,14 @@ body {
 .app-card-btn {
   transition: 0.3s ease-in;
   cursor: pointer;
+  text-decoration: none;
+  color: #4e4e4e;
 }
 
 .app-card-btn:hover {
   background-color: #f7f7f7;
+  text-decoration: none;
+  color: #4e4e4e;
 }
 /* app-card */
 
@@ -146,6 +151,46 @@ body {
   border-radius: 10px;
 }
 /* rounded-modal */
+
+/* count-label */
+.count-label {
+  display: inline-block;
+  padding: 0.4rem;
+  color: #9e9e9e;
+}
+/* count-label */
+
+/* todo-tasks */
+.todo-tasks {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+/* todo-tasks */
+
+/* btn-transparent */
+.btn-transparent {
+  background-color: transparent;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+/* btn-transparent */
+
+/* app-menu */
+.app-menu {
+  border-radius: 10px;
+}
+
+.app-menu:not(.dropdown-menu-right) {
+  border-top-left-radius: 0;
+}
+
+.app-menu.dropdown-menu-right {
+  border-top-right-radius: 0;
+}
+/* app-menu */
 @media screen and (max-width: 991px) {
   .banner {
     padding: 5rem;
