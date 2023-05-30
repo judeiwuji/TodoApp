@@ -2,6 +2,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   IsUUID,
   Model,
   PrimaryKey,
@@ -9,17 +10,22 @@ import {
 } from 'sequelize-typescript';
 import User from './User';
 import { Optional } from 'sequelize';
+import TodoItem from './TodoItem';
 
 export interface TodoAttributes {
   id: string;
   userId: string;
   title: string;
+  items: TodoItem[];
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface TodoCreationAttributes
-  extends Optional<TodoAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+  extends Optional<
+    TodoAttributes,
+    'id' | 'items' | 'createdAt' | 'updatedAt'
+  > {}
 @Table
 export default class Todo extends Model<
   TodoAttributes,
@@ -37,4 +43,7 @@ export default class Todo extends Model<
 
   @Column(DataType.STRING(150))
   title!: string;
+
+  @HasMany(() => TodoItem)
+  items!: TodoItem[];
 }

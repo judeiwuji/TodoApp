@@ -18,7 +18,7 @@ export interface TodoItemAttributes {
 }
 
 export interface TodoItemCreationAttributes
-  extends Optional<TodoItemAttributes, 'id'> {}
+  extends Optional<TodoItemAttributes, 'id' | 'done'> {}
 
 @Table
 export default class TodoItem extends Model<
