@@ -191,6 +191,12 @@ body {
   border-top-right-radius: 0;
 }
 /* app-menu */
+
+/* login-card */
+.login-card {
+  padding: 4rem;
+}
+/* login-card */
 @media screen and (max-width: 991px) {
   .banner {
     padding: 5rem;
@@ -241,4 +247,10 @@ body {
   .app-card {
     padding: 1rem 1.5rem;
   }
+
+  /* login-card */
+  .login-card {
+    padding: 2.5rem;
+  }
+  /* login-card */
 }
