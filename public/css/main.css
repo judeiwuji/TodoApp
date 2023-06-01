@@ -197,6 +197,13 @@ body {
   padding: 4rem;
 }
 /* login-card */
+
+/* task-done */
+.task-done {
+  text-decoration: line-through;
+}
+/* task-done */
+
 @media screen and (max-width: 991px) {
   .banner {
     padding: 5rem;

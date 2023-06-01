@@ -143,7 +143,7 @@ $(function () {
     const element = $(event.currentTarget);
     const { id } = element.data();
     const done = element.prop('checked');
-    console.log(done);
+
     let api = `/todos/items/${id}/`;
     if (element.processing) {
       return;
@@ -151,7 +151,55 @@ $(function () {
     element.data('processing', id);
     api += done ? 'done' : 'undone';
     $.post(api, { _method: 'PUT' }, function (response) {
-      console.log(response);
+      if (done) $(`#task-done-${id}+label`).addClass('task-done');
+      else $(`#task-done-${id}+label`).removeClass('task-done');
+    });
+  });
+
+  $(document).on('click', '#editTodo', function (event) {
+    event.preventDefault();
+    const element = $(event.currentTarget);
+    if (element.data().edit) return;
+    const todoPane = $('#todoPane');
+    const todoContent = $('#todoContent');
+    const text = todoContent.text().trim();
+    todoContent.addClass('d-none');
+
+    element.data('edit', true);
+    todoPane.append(`
+    <div class="d-flex mb-2 w-100" id="todoEditPane"> 
+      <div class="w-100 mr-2">
+            <input type="text" placeholder="Type task" class="form-control wordCount" value="${text}" maxlength="100">
+      </div>
+      <div>
+        <button type="button" class="btn btn-small btn-light" id="updateTodo">
+            Save
+        </button>
+      </div>
+    </div>
+    `);
+  });
+
+  $(document).on('click', '#updateTodo', function (event) {
+    event.preventDefault();
+    const todoEditPane = $('#todoEditPane');
+    const todoContent = $('#todoContent');
+    const editBtn = $('#editTodo');
+    const title = $('input', todoEditPane).val();
+
+    $.post(`/todos/${todoId}`, { _method: 'PUT', title }, function (response) {
+      todoEditPane.remove();
+      todoContent.text(response.title);
+      todoContent.removeClass('d-none');
+      editBtn.removeData('edit');
+    });
+  });
+
+  $(document).on('click', '#deleteTodo', function (event) {
+    event.preventDefault();
+
+    $.post(`/todos/${todoId}`, { _method: 'DELETE' }, function (response) {
+      document.location.href = '/dashboard';
     });
   });
 });

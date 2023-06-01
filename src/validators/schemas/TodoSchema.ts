@@ -1,8 +1,8 @@
-import { array, boolean, mixed, object, string } from 'yup';
+import { array, boolean, object, string } from 'yup';
 
 export const TodoCreationSchema = object({
   title: string().required(),
-  items: array(string().required()).optional(),
+  items: array(string().optional()).optional(),
 });
 
 export const TodoUpdateSchema = object({

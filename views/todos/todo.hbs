@@ -5,10 +5,12 @@
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
                 <div class="card app-card rounded-card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between mb-3">
+                        <div class="d-flex justify-content-between mb-4">
                             <div>
-                                <h5 class="title-text m-0">
-                                    {{todo.title}}
+                                <h5 class="title-text mb-1" id="todoPane">
+                                    <span id="todoContent">
+                                        {{todo.title}}
+                                    </span>
                                 </h5>
                                 <div class="text-muted">
                                     <i class="fas fa-clock"></i>
@@ -23,13 +25,13 @@
 
                                 <ul class="dropdown-menu dropdown-menu-right app-menu">
                                     <li>
-                                        <a href="" class="dropdown-item">
+                                        <a href="" class="dropdown-item" id="editTodo">
                                             <i class="fas fa-pen mr-2"></i>
                                             Edit
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="" class="dropdown-item">
+                                        <a href="" class="dropdown-item" id="deleteTodo">
                                             <i class="fas fa-trash-alt mr-2"></i>
                                             Delete
                                         </a>
@@ -38,7 +40,7 @@
                             </div>
                         </div>
 
-                        <ul class="todo-tasks mb-3" id="todoTasks">
+                        <ul class="todo-tasks mb-4" id="todoTasks">
                             {{#each todo.items as |item|}}
                             <li class="mb-2" id="taskContainer-{{item.id}}">
                                 <div class="d-flex dropdown">
@@ -67,7 +69,8 @@
                                             <input type="checkbox" class="custom-control-input toggleTask"
                                                 id="task-done-{{item.id}}" {{#if item.done}}checked{{/if}}
                                                 data-id="{{item.id}}">
-                                            <label for="task-done-{{item.id}}" class="custom-control-label mb-0">
+                                            <label for="task-done-{{item.id}}"
+                                                class="custom-control-label mb-0 {{#if item.done}}task-done{{/if}}">
                                                 {{item.task}}
                                             </label>
                                         </div>
